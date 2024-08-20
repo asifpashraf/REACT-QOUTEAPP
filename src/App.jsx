@@ -1,78 +1,44 @@
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+import Quotes from "./Qoutes"
 
-function App() {
-  const [count, setCount] = useState('every day is a very day')
-  const [writer,setwriter] = useState("author")
-  const [bgColor,setBgColor] =useState("lightblue")
-  const changeColor=()=>{
-    setBgColor(event.target.value)
-   
-  }
-  
-  function click(){
-    if(bgColor ==="lightblue"){
-      let array =[
-        {qoute:"its really a good day",auhtor:"Asif Ashraf",category:"wisdom"},
-        {qoute:"every master was once a fool",auhtor:"MHD Sameeh",category:"wisdom"},
-        {qoute:"discipline is the key to success",auhtor:"MHD Salah",category:"wisdom"},
-        {qoute:"your greatest enemy is you",auhtor:"Shibu Shibili",category:"wisdom"}
-      ]
-      
-      let randomIndex =Math.floor(Math.random()*array.length)
-      setCount(array[randomIndex].qoute)
-      setwriter(array[randomIndex].auhtor)
-    }else if(bgColor === "lightgreen"){
-      let array =[
-        {qoute:"sun never sets",auhtor:"shahla febiin",category:"motivation"},
-        {qoute:"try just try",auhtor:"noushi nizar",category:"motivation"},
-        {qoute:"just do it",auhtor:"aparna",category:"motivation"},
-        {qoute:"stop procrastination",auhtor:"swalih",category:"motivation"}
-      ]
-      
-      let randomIndex =Math.floor(Math.random()*array.length)
-      setCount(array[randomIndex].qoute)
-      setwriter(array[randomIndex].auhtor)
-    }
-    else if(bgColor ==="orange"){
-      let array =[
-        {qoute:"health is your first wealth",auhtor:"ajmal ds astro",category:"wealth"},
-        {qoute:"never spend,you dont have",auhtor:"thatha",category:"wealth"},
-        {qoute:"invest where your assets grow",auhtor:"noushad ceo",category:"wealth"},
-        {qoute:"give one,you shall receive 10",auhtor:"god almighty",category:"wealth"}
-      ]
-      
-      let randomIndex =Math.floor(Math.random()*array.length)
-      setCount(array[randomIndex].qoute)
-      setwriter(array[randomIndex].auhtor)
-    }
-  }
+
+function App(){
+  const [auhtor,setAuthor] = useState("Albert Einstein")
+  const filterdQoutes =Quotes.filter(qoute=>qoute.author===auhtor)
+  const [q,setQ] = useState(filterdQoutes[0].quote)
+
+  function category(event){
+    let cat =event.target.value
+    setAuthor(cat)
+}
+function random(){
+ const randomIndex =Math.floor(Math.random()*filterdQoutes.length)
+ const randomQoute=filterdQoutes[randomIndex].quote
  
+ setQ(randomQoute)
+ console.log(randomQoute)
+}
   
-  return (
-    <>
-      <div style={{ backgroundColor: bgColor, height: "100vh", width:"100vw",margin:"0px" }}>
-        
-        <button onClick={click}>
-          Start your day
-        </button>
-      <div className="card">
-        <select name="category" id="category" onChange={changeColor}>
-          
-          <option value="lightblue" className='opt'>wisdom</option>
-          <option value="lightgreen" className='opt'>motivation</option>
-          <option value="orange" className='opt'>wealth</option>
-        </select>
-      <h1 style={{color:'white'}}>{count}</h1>
-      <h3>{writer}</h3>
-        
-      </div>
-      </div>
-      
-    </>
-  )
+
+  
+  
+  return (<>
+  <div className="flex flex-col justify-center items-center h-[100vh] bg-orange-300">
+    <select name="" id="" onChange={category}>
+      <option value="Albert Einstein">Albert Einstein</option>
+      <option value="Maya Angelou">Maya Angelou</option>
+      <option value="Steve Jobs">Steve Jobs</option>
+      <option value="Mahatma Gandhi">Mahatma Gandhi</option>
+      <option value="Oscar Wilde">Oscar Wilde</option>
+    </select>
+    <h2>{auhtor}</h2>
+    <h1>{q}</h1>
+    
+    
+    <button onClick={random}>start your day</button>
+    
+  </div>
+  </>)
 }
 
 export default App
